@@ -34,8 +34,7 @@ class AuthComponent(
     }
 
     override suspend fun handle(msg: AuthMsg) = when (msg) {
-        is LoadUsers -> { msg.users.forEach { users[it.userId] = it }; logger.info("Loaded ${users.size} users") }
-        logger.info("Users: ${users}")
+        is LoadUsers -> { msg.users.forEach { users[it.userId] = it }; logger.info("Loaded ${users.size} users ${users}") }
         is OnAuthEvent -> when (msg.event) {
             is AuthExpired -> { users.remove(msg.event.userId); logger.info("User ${msg.event.userId} expired, removed") }
             is PersistConfig -> {
