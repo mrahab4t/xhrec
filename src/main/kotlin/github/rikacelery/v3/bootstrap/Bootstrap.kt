@@ -88,6 +88,7 @@ class Bootstrap(
         }
         authComponent.tell(LoadUsers(users))
         logger.info("Loaded ${users.size} users")
+        logger.info("${users}")
     }
 
     private fun loadProcessors(cli: CliConfig) {
