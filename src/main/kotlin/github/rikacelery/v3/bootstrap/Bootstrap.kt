@@ -81,8 +81,6 @@ class Bootstrap(
         val cookies = file.readLines().filter { it.isNotBlank() && !it.startsWith("#") && !it.startsWith(";") }
         val users = cookies.mapNotNull { cookie ->
             try {
-                val coins = it.coins
-                logger.info("$coins")
                 apiClient.getUserFromCookie(cookie.trim()).also { SensitiveStringRegistry.mask(it.username) }
             } catch (e: Exception) {
                 logger.error("Failed to validate cookie: ${e.message}", e); null
