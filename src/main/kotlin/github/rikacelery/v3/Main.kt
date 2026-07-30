@@ -161,8 +161,6 @@ fun main(vararg args: String) {
         val bootstrap =
             Bootstrap(ApiClient, roomComponent, authComponent, postProcessorComponent, schedulerComponent)
         bootstrap.initialize(args.toList())
-        val users = requestBus.request<List<User>>(GetValidPaymentAccount(price.toLong()))
-        mainLogger.info("user: {}", users)
 
         // 5. Start HTTP server
         val engine = httpServer.start()

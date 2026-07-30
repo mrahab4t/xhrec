@@ -24,6 +24,7 @@ class AuthComponent(
         subscribe<AuthExpired>(AuthExpired::class)
         subscribe<PersistConfig>(PersistConfig::class)
         subscribe<CommandEnvelope>(CommandEnvelope::class)
+        logger.info("users: {}", users)
     }
 
     override suspend fun wrapEvent(event: Any): AuthMsg? = when (event) {
