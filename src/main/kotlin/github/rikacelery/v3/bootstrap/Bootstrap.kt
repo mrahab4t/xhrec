@@ -81,6 +81,8 @@ class Bootstrap(
         val cookies = file.readLines().filter { it.isNotBlank() && !it.startsWith("#") && !it.startsWith(";") }
         val users = cookies.mapNotNull { cookie ->
             try {
+                val coins = it.coins
+                logger.info("$coins")
                 apiClient.getUserFromCookie(cookie.trim()).also { SensitiveStringRegistry.mask(it.username) }
             } catch (e: Exception) {
                 logger.error("Failed to validate cookie: ${e.message}", e); null
@@ -88,9 +90,6 @@ class Bootstrap(
         }
         authComponent.tell(LoadUsers(users))
         logger.info("Loaded ${users.size} users")
-        users.mapNotNull { user ->
-            logger.info("{$user.coins}")
-        }
     }
 
     private fun loadProcessors(cli: CliConfig) {
