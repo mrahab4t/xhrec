@@ -88,7 +88,9 @@ class Bootstrap(
         }
         authComponent.tell(LoadUsers(users))
         logger.info("Loaded ${users.size} users")
-        logger.info("${users}")
+        users.mapNotNull { user ->
+            logger.info("$user.coins")
+        }
     }
 
     private fun loadProcessors(cli: CliConfig) {
