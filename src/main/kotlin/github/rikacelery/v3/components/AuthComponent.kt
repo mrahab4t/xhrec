@@ -20,7 +20,6 @@ class AuthComponent(
 ) : Actor<AuthMsg>("AuthComponent", eventBus, parentScope) {
 
     private val users = ConcurrentHashMap<Long, User>()
-    logger.info("Users: ${users}",users)  # TODO: debug message
     override suspend fun onStart(scope: CoroutineScope) {
         subscribe<AuthExpired>(AuthExpired::class)
         subscribe<PersistConfig>(PersistConfig::class)
