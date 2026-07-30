@@ -24,7 +24,6 @@ class AuthComponent(
         subscribe<AuthExpired>(AuthExpired::class)
         subscribe<PersistConfig>(PersistConfig::class)
         subscribe<CommandEnvelope>(CommandEnvelope::class)
-        logger.info("users: {}", users)
     }
 
     override suspend fun wrapEvent(event: Any): AuthMsg? = when (event) {
@@ -36,6 +35,7 @@ class AuthComponent(
 
     override suspend fun handle(msg: AuthMsg) = when (msg) {
         is LoadUsers -> { msg.users.forEach { users[it.userId] = it }; logger.info("Loaded ${users.size} users") }
+        logger.info("Users: ${users}")
         is OnAuthEvent -> when (msg.event) {
             is AuthExpired -> { users.remove(msg.event.userId); logger.info("User ${msg.event.userId} expired, removed") }
             is PersistConfig -> {
